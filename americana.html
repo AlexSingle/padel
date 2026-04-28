@@ -9,15 +9,14 @@
 
     :root {
       --primary: #1565C0;
-      --primary-light: #1976D2;
-      --accent: #2E7D32;
-      --bg: #F0F4F8;
-      --card: #ffffff;
-      --text: #1A1A2E;
-      --text-sub: #5f6368;
-      --border: #DCE3EC;
-      --danger: #C62828;
-      --gold: #F9A825;
+      --accent:  #2E7D32;
+      --bg:      #F0F4F8;
+      --card:    #ffffff;
+      --text:    #1A1A2E;
+      --sub:     #5f6368;
+      --border:  #DCE3EC;
+      --danger:  #C62828;
+      --gold:    #F9A825;
     }
 
     body {
@@ -34,34 +33,23 @@
       color: white;
       padding: 14px 16px 12px;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 200;
+      position: sticky; top: 0; z-index: 200;
       box-shadow: 0 2px 6px rgba(0,0,0,.25);
     }
-    header h1 { font-size: 19px; font-weight: 700; letter-spacing: .3px; }
+    header h1 { font-size: 19px; font-weight: 700; }
     header p  { font-size: 12px; opacity: .8; margin-top: 2px; }
 
     /* ── TABS ── */
     .tabs {
-      display: flex;
-      background: white;
+      display: flex; background: white;
       border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 58px;
-      z-index: 199;
+      position: sticky; top: 58px; z-index: 199;
     }
     .tab {
-      flex: 1;
-      padding: 11px 4px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-sub);
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      transition: color .15s, border-color .15s;
-      user-select: none;
+      flex: 1; padding: 11px 4px; text-align: center;
+      font-size: 13px; font-weight: 600; color: var(--sub);
+      border-bottom: 2px solid transparent; cursor: pointer;
+      transition: color .15s, border-color .15s; user-select: none;
     }
     .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
@@ -71,185 +59,126 @@
 
     /* ── CARDS ── */
     .card {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      background: var(--card); border-radius: 14px; padding: 16px;
+      margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.08);
     }
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
+    .card-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
 
     /* ── INPUTS ── */
     .input-row { display: flex; gap: 8px; margin-bottom: 10px; }
     input[type="text"] {
-      flex: 1;
-      padding: 11px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
-      transition: border-color .2s;
-      background: #fafafa;
+      flex: 1; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 16px; outline: none;
+      transition: border-color .2s; background: #fafafa;
     }
     input[type="text"]:focus { border-color: var(--primary); background: white; }
 
     /* ── BUTTONS ── */
     .btn {
-      padding: 11px 18px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity .15s, transform .1s;
-      user-select: none;
+      padding: 11px 18px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      transition: opacity .15s, transform .1s; user-select: none;
     }
     .btn:active { opacity: .8; transform: scale(.97); }
     .btn-primary { background: var(--primary); color: white; }
     .btn-success {
-      background: var(--accent);
-      color: white;
-      width: 100%;
-      padding: 15px;
-      font-size: 16px;
-      border-radius: 12px;
-      letter-spacing: .3px;
+      background: var(--accent); color: white; width: 100%;
+      padding: 15px; font-size: 16px; border-radius: 12px;
     }
     .btn-danger { background: none; color: var(--danger); font-size: 22px; padding: 4px 10px; }
 
-    /* ── PLAYER LIST ── */
-    .player-item {
-      display: flex;
-      align-items: center;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border);
+    /* ── TEAM LIST ── */
+    .team-item {
+      display: flex; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
     }
-    .player-item:last-child { border-bottom: none; }
-    .player-num {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
+    .team-item:last-child { border-bottom: none; }
+    .team-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: white;
       display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700;
-      flex-shrink: 0;
-      margin-right: 10px;
+      font-size: 12px; font-weight: 700; flex-shrink: 0; margin-right: 10px;
     }
-    .player-name { flex: 1; font-size: 15px; font-weight: 500; }
-    .player-count { font-size: 13px; color: var(--text-sub); margin-top: 8px; }
+    .team-name-label { flex: 1; font-size: 15px; font-weight: 500; }
+    .team-count { font-size: 13px; color: var(--sub); margin-top: 8px; }
 
     /* ── ROUNDS ── */
-    .round-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .round-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
     .round-badge {
-      background: var(--primary);
-      color: white;
-      padding: 3px 11px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
+      background: var(--primary); color: white;
+      padding: 3px 11px; border-radius: 20px; font-size: 12px; font-weight: 700;
     }
-    .round-sub { font-size: 12px; color: var(--text-sub); }
+    .round-sub { font-size: 12px; color: var(--sub); }
 
     /* ── MATCH CARD ── */
     .match-card {
-      background: var(--bg);
-      border-radius: 12px;
-      padding: 13px;
-      margin-bottom: 8px;
+      background: var(--bg); border-radius: 12px;
+      padding: 13px; margin-bottom: 8px;
     }
-    .match-label { font-size: 11px; color: var(--text-sub); margin-bottom: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .match-label {
+      font-size: 11px; color: var(--sub); margin-bottom: 7px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
+    }
     .match-teams { display: flex; align-items: center; gap: 6px; }
-    .team { flex: 1; text-align: center; }
-    .team-name { font-size: 14px; font-weight: 600; display: block; line-height: 1.4; }
-    .team-name.sub { font-weight: 400; color: var(--text-sub); }
-    .vs { font-size: 12px; font-weight: 800; color: var(--text-sub); flex-shrink: 0; padding: 0 2px; }
+    .match-team  { flex: 1; text-align: center; }
+    .match-team-name {
+      font-size: 15px; font-weight: 700; display: block;
+      line-height: 1.3; word-break: break-word;
+    }
+    .vs { font-size: 12px; font-weight: 800; color: var(--sub); flex-shrink: 0; }
 
     /* ── SCORE ROW ── */
-    .score-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 11px;
-    }
+    .score-row { display: flex; align-items: center; gap: 6px; margin-top: 11px; }
     .score-input {
-      width: 52px;
-      padding: 7px 4px;
-      text-align: center;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary);
-      background: white;
-      outline: none;
+      width: 56px; padding: 7px 4px; text-align: center;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 22px; font-weight: 700; color: var(--primary);
+      background: white; outline: none;
+      /* hide number spinners */
+      -moz-appearance: textfield;
     }
+    .score-input::-webkit-outer-spin-button,
+    .score-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .score-input:focus { border-color: var(--primary); }
-    .score-sep { font-size: 18px; font-weight: 700; color: var(--text-sub); }
-    .score-side { flex: 1; font-size: 11px; color: var(--text-sub); text-align: center; font-weight: 600; }
+    .score-sep  { font-size: 18px; font-weight: 700; color: var(--sub); }
+    .score-side { flex: 1; font-size: 11px; color: var(--sub); text-align: center; font-weight: 600; }
 
     /* ── STATS GRID ── */
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
-    .stat-box { background: var(--bg); border-radius: 10px; padding: 10px; text-align: center; }
-    .stat-num { font-size: 26px; font-weight: 800; color: var(--primary); }
-    .stat-lbl { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-box   { background: var(--bg); border-radius: 10px; padding: 10px; text-align: center; }
+    .stat-num   { font-size: 26px; font-weight: 800; color: var(--primary); }
+    .stat-lbl   { font-size: 11px; color: var(--sub); margin-top: 2px; }
 
     /* ── STANDINGS ── */
     .standings-table { width: 100%; border-collapse: collapse; }
     .standings-table th {
-      font-size: 11px;
-      color: var(--text-sub);
-      text-align: left;
-      padding: 5px 8px;
-      border-bottom: 2px solid var(--border);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .4px;
+      font-size: 11px; color: var(--sub); text-align: left;
+      padding: 5px 8px; border-bottom: 2px solid var(--border);
+      font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
     }
     .standings-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 14px; }
     .standings-table tr:last-child td { border-bottom: none; }
     .medal { font-size: 18px; }
+    .pts-big { font-size: 16px; font-weight: 800; color: var(--primary); }
 
     /* ── PLACEHOLDER ── */
     .placeholder-box {
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      padding: 18px 16px;
-      text-align: center;
-      color: var(--text-sub);
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 18px 16px; text-align: center; color: var(--sub);
     }
     .placeholder-box .ph-icon { font-size: 26px; margin-bottom: 8px; }
     .placeholder-box p { font-size: 13px; line-height: 1.5; }
 
     /* ── EMPTY STATE ── */
-    .empty-state { text-align: center; padding: 48px 20px; color: var(--text-sub); }
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--sub); }
     .empty-state .icon { font-size: 52px; margin-bottom: 12px; }
     .empty-state p { font-size: 15px; line-height: 1.5; }
 
-    /* ── ALERT ── */
-    .alert {
-      background: #FFF8E1;
-      border-left: 4px solid var(--gold);
-      border-radius: 8px;
-      padding: 10px 13px;
-      font-size: 13px;
-      color: #5D4037;
-      margin-bottom: 12px;
-    }
-
-    /* ── PROGRESS BAR ── */
+    /* ── PROGRESS ── */
     .progress-wrap { margin-top: 8px; }
-    .progress-lbl { font-size: 12px; color: var(--text-sub); margin-bottom: 4px; display: flex; justify-content: space-between; }
-    .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .progress-lbl  { font-size: 12px; color: var(--sub); margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .progress-bar  { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .3s; }
   </style>
 </head>
@@ -261,42 +190,42 @@
 </header>
 
 <div class="tabs">
-  <div class="tab active"   onclick="showTab('players')">👥 Игроки</div>
-  <div class="tab"          onclick="showTab('games')">🎯 Игры</div>
-  <div class="tab"          onclick="showTab('standings')">🏆 Итоги</div>
+  <div class="tab active" onclick="showTab('teams')">👥 Команды</div>
+  <div class="tab"        onclick="showTab('games')">🎯 Игры</div>
+  <div class="tab"        onclick="showTab('standings')">🏆 Итоги</div>
 </div>
 
-<!-- ═══════════════ TAB: PLAYERS ═══════════════ -->
-<div id="tab-players" class="page active">
+<!-- ═══════════════ TAB: TEAMS ═══════════════ -->
+<div id="tab-teams" class="page active">
 
   <div class="card">
-    <div class="card-title">Добавить игрока</div>
+    <div class="card-title">Добавить команду</div>
     <div class="input-row">
-      <input type="text" id="playerInput" placeholder="Имя игрока"
-             onkeypress="if(event.key==='Enter')addPlayer()">
-      <button class="btn btn-primary" onclick="addPlayer()">+</button>
+      <input type="text" id="teamInput" placeholder="Название команды"
+             onkeypress="if(event.key==='Enter')addTeam()">
+      <button class="btn btn-primary" onclick="addTeam()">+</button>
     </div>
-    <div id="playerList"></div>
-    <div id="playerCount" class="player-count"></div>
+    <div id="teamList"></div>
+    <div id="teamCount" class="team-count"></div>
   </div>
 
   <!--
     ╔══════════════════════════════════════════════╗
-    ║   ПРАВИЛА СОСТАВЛЕНИЯ ПАР — БУДУЩЕЕ          ║
+    ║   ПРАВИЛА СОСТАВЛЕНИЯ РАСПИСАНИЯ — БУДУЩЕЕ   ║
     ║                                              ║
     ║  Здесь можно реализовать:                    ║
-    ║  • Фиксированные пары (partnerOf[A] = B)     ║
-    ║  • Запрещённые пары                          ║
-    ║  • Уровни игроков / сид                      ║
-    ║  Хук: функция applyPairingRules(pairs)        ║
+    ║  • Фиксированные пары в одном раунде         ║
+    ║  • Запрет на определённые встречи            ║
+    ║  • Сидирование команд                        ║
+    ║  Хук: функция applyScheduleRules(matches)    ║
     ╚══════════════════════════════════════════════╝
   -->
   <div class="card">
-    <div class="card-title">⚙️ Правила составления пар</div>
+    <div class="card-title">⚙️ Правила расписания</div>
     <div class="placeholder-box">
       <div class="ph-icon">🔧</div>
-      <p>Здесь появятся настройки пар:<br>
-         фиксированные пары, запреты, сиды и т.д.</p>
+      <p>Здесь появятся настройки расписания:<br>
+         фиксированные матчи, сиды и т.д.</p>
     </div>
   </div>
 
@@ -313,7 +242,7 @@
   <div id="gamesContent">
     <div class="empty-state">
       <div class="icon">🏆</div>
-      <p>Добавьте игроков<br>и нажмите «Сгенерировать турнир»</p>
+      <p>Добавьте команды<br>и нажмите «Сгенерировать турнир»</p>
     </div>
   </div>
 </div>
@@ -332,15 +261,15 @@
 // ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
-let players = [];
+let teams   = [];
 let matches = [];
-// match = { round, num, team1:[p,p], team2:[p,p], score1:null, score2:null }
+// match = { round, num, t1: "name", t2: "name", score1: null, score2: null }
 
 // ══════════════════════════════════════════════
 //  TABS
 // ══════════════════════════════════════════════
 function showTab(name) {
-  const TABS = ['players','games','standings'];
+  const TABS = ['teams','games','standings'];
   document.querySelectorAll('.tab').forEach((t, i) =>
     t.classList.toggle('active', TABS[i] === name));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -348,119 +277,87 @@ function showTab(name) {
 }
 
 // ══════════════════════════════════════════════
-//  PLAYERS
+//  TEAMS
 // ══════════════════════════════════════════════
-function addPlayer() {
-  const inp = document.getElementById('playerInput');
+function addTeam() {
+  const inp  = document.getElementById('teamInput');
   const name = inp.value.trim();
   if (!name) return;
-  if (players.find(p => p.toLowerCase() === name.toLowerCase())) {
-    alert('Игрок с таким именем уже есть');
+  if (teams.find(t => t.toLowerCase() === name.toLowerCase())) {
+    alert('Команда с таким названием уже есть');
     return;
   }
-  players.push(name);
+  teams.push(name);
   inp.value = '';
-  renderPlayers();
+  renderTeams();
   inp.focus();
 }
 
-function removePlayer(i) {
-  players.splice(i, 1);
-  renderPlayers();
+function removeTeam(i) {
+  teams.splice(i, 1);
+  renderTeams();
 }
 
-function renderPlayers() {
-  const list  = document.getElementById('playerList');
-  const count = document.getElementById('playerCount');
+function renderTeams() {
+  const list  = document.getElementById('teamList');
+  const count = document.getElementById('teamCount');
 
-  if (!players.length) {
-    list.innerHTML = '<p style="color:var(--text-sub);font-size:14px;padding:6px 0">Пока нет игроков</p>';
+  if (!teams.length) {
+    list.innerHTML = '<p style="color:var(--sub);font-size:14px;padding:6px 0">Пока нет команд</p>';
     count.textContent = '';
     return;
   }
 
-  list.innerHTML = players.map((p, i) => `
-    <div class="player-item">
-      <div class="player-num">${i+1}</div>
-      <div class="player-name">${esc(p)}</div>
-      <button class="btn btn-danger" onclick="removePlayer(${i})">×</button>
+  list.innerHTML = teams.map((t, i) => `
+    <div class="team-item">
+      <div class="team-num">${i+1}</div>
+      <div class="team-name-label">${esc(t)}</div>
+      <button class="btn btn-danger" onclick="removeTeam(${i})">×</button>
     </div>`).join('');
 
-  const n = players.length;
-  const pairs = n * (n-1) / 2;
-  const games = Math.floor(pairs / 2);
-  count.textContent = `${n} игроков · ${pairs} пар · ~${games} игр`;
+  const n     = teams.length;
+  const games = n * (n - 1) / 2;
+  count.textContent = `${n} команд · ${games} игр`;
 }
 
 // ══════════════════════════════════════════════
-//  PAIR GENERATION  (Americana: each with each once)
+//  SCHEDULE RULES HOOK
+//  Future: modify/reorder/filter matches here.
+//  Input:  array of { t1, t2 }
+//  Output: same structure, possibly reordered
 // ══════════════════════════════════════════════
-function allPairs(list) {
-  const pairs = [];
-  for (let i = 0; i < list.length; i++)
-    for (let j = i+1; j < list.length; j++)
-      pairs.push([list[i], list[j]]);
-  return pairs;
+function applyScheduleRules(matchList) {
+  // ── Add custom logic here ──
+  return matchList;
+}
+
+// ══════════════════════════════════════════════
+//  MATCH GENERATION  (round-robin: each vs each)
+// ══════════════════════════════════════════════
+function generateRoundRobin(teamList) {
+  const raw = [];
+  for (let i = 0; i < teamList.length; i++)
+    for (let j = i + 1; j < teamList.length; j++)
+      raw.push({ t1: teamList[i], t2: teamList[j] });
+
+  return applyScheduleRules(shuffle(raw));
 }
 
 function shuffle(arr) {
   const a = [...arr];
-  for (let i = a.length-1; i > 0; i--) {
-    const j = Math.random() * (i+1) | 0;
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.random() * (i + 1) | 0;
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
 
 // ══════════════════════════════════════════════
-//  PAIRING RULES HOOK
-//  Future: replace this stub with actual rules.
-//  Input:  array of [p1,p2] pairs (all C(n,2))
-//  Output: filtered / reordered pairs
-// ══════════════════════════════════════════════
-function applyPairingRules(pairs) {
-  // ── Add custom logic here ──
-  // Example: force A always with B:
-  //   pairs = pairs.filter(p => !(p[0]==='A' && p[1]==='B'));
-  //   pairs.unshift(['A','B']);
-  return pairs;
-}
-
-// ══════════════════════════════════════════════
-//  MATCH SCHEDULING
-//  Greedily pairs up pairs that share no players
-// ══════════════════════════════════════════════
-function scheduleMatches(playerList) {
-  let pairs = shuffle(allPairs(playerList));
-  pairs = applyPairingRules(pairs);
-
-  const scheduled = [];
-
-  while (pairs.length >= 2) {
-    const t1 = pairs[0];
-    const set1 = new Set(t1);
-    let found = false;
-    for (let i = 1; i < pairs.length; i++) {
-      const t2 = pairs[i];
-      if (!t2.some(p => set1.has(p))) {
-        scheduled.push({ team1: t1, team2: t2 });
-        pairs = pairs.filter((_, k) => k !== 0 && k !== i);
-        found = true;
-        break;
-      }
-    }
-    if (!found) pairs = pairs.slice(1); // can't match, skip
-  }
-
-  return scheduled;
-}
-
-// ══════════════════════════════════════════════
 //  ROUND BUILDER
-//  Groups matches so no player plays twice per round
+//  Groups matches so no team plays twice per round
 // ══════════════════════════════════════════════
 function buildRounds(matchList) {
-  const rem  = [...matchList];
+  const rem    = [...matchList];
   const rounds = [];
 
   while (rem.length) {
@@ -469,10 +366,10 @@ function buildRounds(matchList) {
     const keep  = [];
 
     for (const m of rem) {
-      const ps = [...m.team1, ...m.team2];
-      if (ps.some(p => used.has(p))) { keep.push(m); continue; }
+      if (used.has(m.t1) || used.has(m.t2)) { keep.push(m); continue; }
       round.push(m);
-      ps.forEach(p => used.add(p));
+      used.add(m.t1);
+      used.add(m.t2);
     }
 
     if (!round.length) { rounds.push([rem.shift()]); continue; } // safety
@@ -488,21 +385,20 @@ function buildRounds(matchList) {
 //  GENERATE TOURNAMENT
 // ══════════════════════════════════════════════
 function generateTournament() {
-  if (players.length < 4) {
-    alert('Нужно минимум 4 игрока');
+  if (teams.length < 2) {
+    alert('Нужно минимум 2 команды');
     return;
   }
 
-  const raw    = scheduleMatches(players);
+  const raw    = generateRoundRobin(teams);
   const rounds = buildRounds(raw);
 
   matches = [];
   let num = 1;
   rounds.forEach((round, ri) => {
     round.forEach(m => {
-      matches.push({ round: ri+1, num: num++,
-        team1: m.team1, team2: m.team2,
-        score1: null, score2: null });
+      matches.push({ round: ri + 1, num: num++,
+        t1: m.t1, t2: m.t2, score1: null, score2: null });
     });
   });
 
@@ -521,18 +417,16 @@ function renderGames(rounds) {
     return;
   }
 
-  const n = players.length;
   let html = `
     <div class="card">
       <div class="stats-grid">
-        <div class="stat-box"><div class="stat-num">${n}</div><div class="stat-lbl">Игроков</div></div>
+        <div class="stat-box"><div class="stat-num">${teams.length}</div><div class="stat-lbl">Команд</div></div>
         <div class="stat-box"><div class="stat-num">${matches.length}</div><div class="stat-lbl">Всего игр</div></div>
         <div class="stat-box"><div class="stat-num">${rounds.length}</div><div class="stat-lbl">Раундов</div></div>
-        <div class="stat-box"><div class="stat-num">${n-1}</div><div class="stat-lbl">Пар у каждого</div></div>
+        <div class="stat-box"><div class="stat-num">${teams.length - 1}</div><div class="stat-lbl">Игр у каждой</div></div>
       </div>
     </div>`;
 
-  // group matches by round for display
   const byRound = {};
   matches.forEach(m => { (byRound[m.round] = byRound[m.round] || []).push(m); });
 
@@ -541,40 +435,38 @@ function renderGames(rounds) {
     html += `<div class="card">
       <div class="round-header">
         <span class="round-badge">Раунд ${r}</span>
-        <span class="round-sub">${rMatches.length} ${rMatches.length===1?'игра':'игры'}</span>
+        <span class="round-sub">${rMatches.length} ${wordGame(rMatches.length)}</span>
       </div>`;
 
     rMatches.forEach(m => {
       const idx = matches.indexOf(m);
       const s1  = m.score1 !== null ? m.score1 : '';
       const s2  = m.score2 !== null ? m.score2 : '';
-      const sn1 = shortName(m.team1[0]) + ' / ' + shortName(m.team1[1]);
-      const sn2 = shortName(m.team2[0]) + ' / ' + shortName(m.team2[1]);
 
       html += `
         <div class="match-card">
           <div class="match-label">Игра #${m.num}</div>
           <div class="match-teams">
-            <div class="team">
-              <span class="team-name">${esc(m.team1[0])}</span>
-              <span class="team-name sub">${esc(m.team1[1])}</span>
+            <div class="match-team">
+              <span class="match-team-name">${esc(m.t1)}</span>
             </div>
             <div class="vs">VS</div>
-            <div class="team">
-              <span class="team-name">${esc(m.team2[0])}</span>
-              <span class="team-name sub">${esc(m.team2[1])}</span>
+            <div class="match-team">
+              <span class="match-team-name">${esc(m.t2)}</span>
             </div>
           </div>
           <div class="score-row">
-            <span class="score-side">${esc(sn1)}</span>
-            <input type="number" class="score-input" min="0" max="99"
+            <span class="score-side">${esc(m.t1)}</span>
+            <input type="number" inputmode="numeric" pattern="[0-9]*"
+                   class="score-input" min="0" max="99"
                    value="${s1}" placeholder="—"
                    oninput="setScore(${idx},1,this.value)">
             <span class="score-sep">:</span>
-            <input type="number" class="score-input" min="0" max="99"
+            <input type="number" inputmode="numeric" pattern="[0-9]*"
+                   class="score-input" min="0" max="99"
                    value="${s2}" placeholder="—"
                    oninput="setScore(${idx},2,this.value)">
-            <span class="score-side">${esc(sn2)}</span>
+            <span class="score-side">${esc(m.t2)}</span>
           </div>
         </div>`;
     });
@@ -588,15 +480,16 @@ function renderGames(rounds) {
 // ══════════════════════════════════════════════
 //  SCORE UPDATE
 // ══════════════════════════════════════════════
-function setScore(idx, team, val) {
+function setScore(idx, side, val) {
   const v = val === '' ? null : parseInt(val, 10);
-  if (team === 1) matches[idx].score1 = v;
+  if (side === 1) matches[idx].score1 = v;
   else            matches[idx].score2 = v;
   renderStandings();
 }
 
 // ══════════════════════════════════════════════
 //  RENDER STANDINGS
+//  Ranked by total points scored (sum of all scores)
 // ══════════════════════════════════════════════
 function renderStandings() {
   const cont = document.getElementById('standingsContent');
@@ -605,39 +498,25 @@ function renderStandings() {
     return;
   }
 
+  // Init stats
   const st = {};
-  players.forEach(p => { st[p] = { name: p, played: 0, wins: 0, losses: 0, draws: 0, gf: 0, ga: 0 }; });
+  teams.forEach(t => { st[t] = { name: t, played: 0, points: 0 }; });
 
+  // Accumulate points
   matches.forEach(m => {
     if (m.score1 === null || m.score2 === null) return;
-    const s1 = m.score1, s2 = m.score2;
-    m.team1.forEach(p => {
-      st[p].played++;
-      st[p].gf += s1; st[p].ga += s2;
-      if (s1 > s2) st[p].wins++;
-      else if (s1 < s2) st[p].losses++;
-      else st[p].draws++;
-    });
-    m.team2.forEach(p => {
-      st[p].played++;
-      st[p].gf += s2; st[p].ga += s1;
-      if (s2 > s1) st[p].wins++;
-      else if (s2 < s1) st[p].losses++;
-      else st[p].draws++;
-    });
+    st[m.t1].played++;  st[m.t1].points += m.score1;
+    st[m.t2].played++;  st[m.t2].points += m.score2;
   });
 
-  const sorted = Object.values(st).sort((a, b) => {
-    if (b.wins !== a.wins) return b.wins - a.wins;
-    const da = a.gf - a.ga, db = b.gf - b.ga;
-    if (db !== da) return db - da;
-    return b.gf - a.gf;
-  });
+  // Sort by total points desc, then by games played desc (more games = more info)
+  const sorted = Object.values(st).sort((a, b) =>
+    b.points !== a.points ? b.points - a.points : b.played - a.played);
 
-  const played  = matches.filter(m => m.score1 !== null && m.score2 !== null).length;
-  const total   = matches.length;
-  const pct     = total ? Math.round(played / total * 100) : 0;
-  const MEDALS  = ['🥇','🥈','🥉'];
+  const played = matches.filter(m => m.score1 !== null && m.score2 !== null).length;
+  const total  = matches.length;
+  const pct    = total ? Math.round(played / total * 100) : 0;
+  const MEDALS = ['🥇','🥈','🥉'];
 
   let html = `
     <div class="card">
@@ -654,22 +533,18 @@ function renderStandings() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Игрок</th>
-            <th title="Победы">В</th>
-            <th title="Поражения">П</th>
-            <th title="Игры: забито−пропущено">Г±</th>
+            <th>Команда</th>
+            <th title="Сыграно игр">И</th>
+            <th title="Суммарные очки">Очки</th>
           </tr>
         </thead>
         <tbody>
-          ${sorted.map((p, i) => `
+          ${sorted.map((t, i) => `
             <tr>
               <td><span class="medal">${MEDALS[i] || i+1}</span></td>
-              <td><strong>${esc(p.name)}</strong></td>
-              <td>${p.wins}</td>
-              <td>${p.losses}</td>
-              <td style="color:${p.gf-p.ga>=0?'var(--accent)':'var(--danger)'}">
-                ${p.gf-p.ga >= 0 ? '+' : ''}${p.gf-p.ga}
-              </td>
+              <td><strong>${esc(t.name)}</strong></td>
+              <td style="color:var(--sub)">${t.played}</td>
+              <td><span class="pts-big">${t.points}</span></td>
             </tr>`).join('')}
         </tbody>
       </table>
@@ -682,15 +557,18 @@ function renderStandings() {
 //  HELPERS
 // ══════════════════════════════════════════════
 function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-function shortName(s) {
-  const parts = s.trim().split(/\s+/);
-  return parts.length > 1 ? parts[0][0] + '. ' + parts[parts.length-1] : s;
+
+function wordGame(n) {
+  if (n === 1) return 'игра';
+  if (n >= 2 && n <= 4) return 'игры';
+  return 'игр';
 }
 
 // Init
-renderPlayers();
+renderTeams();
 </script>
 </body>
 </html>
