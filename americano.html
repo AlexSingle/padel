@@ -212,6 +212,31 @@
     .medal  { font-size: 18px; }
     .g-big  { font-size: 16px; font-weight: 800; color: var(--primary); }
 
+    /* ── LEGEND ── */
+    .legend-toggle {
+      background: none; border: none; cursor: pointer;
+      font-size: 16px; padding: 0 0 0 6px;
+      opacity: .55; vertical-align: middle;
+      transition: opacity .15s;
+    }
+    .legend-toggle:hover { opacity: 1; }
+    .legend-box {
+      display: none; margin-top: 10px;
+      background: var(--bg); border-radius: 10px; padding: 10px 12px;
+    }
+    .legend-box.open { display: block; }
+    .legend-row {
+      display: flex; align-items: baseline; gap: 6px;
+      padding: 4px 0; font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legend-row:last-child { border-bottom: none; }
+    .legend-key {
+      font-weight: 800; color: var(--primary);
+      min-width: 28px; flex-shrink: 0;
+    }
+    .legend-val { color: var(--sub); }
+
     /* ── PLACEHOLDER ── */
     .placeholder-box {
       border: 2px dashed var(--border); border-radius: 12px;
@@ -803,7 +828,18 @@ function renderStandings() {
 
   cont.innerHTML = `
     <div class="card">
-      <div class="card-title">${L.standTitle}</div>
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span class="card-title" style="margin-bottom:0;flex:1">${L.standTitle}</span>
+        <button class="legend-toggle" onclick="toggleLegend()">ℹ️</button>
+      </div>
+      <div class="legend-box" id="standLegend">
+        <div class="legend-row"><span class="legend-key">${L.colP}</span><span class="legend-val">${L.ttP}</span></div>
+        <div class="legend-row"><span class="legend-key">${L.colW}</span><span class="legend-val">${L.ttW}</span></div>
+        <div class="legend-row"><span class="legend-key">${L.colD}</span><span class="legend-val">${L.ttD}</span></div>
+        <div class="legend-row"><span class="legend-key">${L.colL}</span><span class="legend-val">${L.ttL}</span></div>
+        <div class="legend-row"><span class="legend-key">${L.colG}</span><span class="legend-val">${L.ttG}</span></div>
+        <div class="legend-row"><span class="legend-key">${L.colPts}</span><span class="legend-val">${L.ttPts}</span></div>
+      </div>
       <div class="progress-wrap">
         <div class="progress-lbl">
           <span>${L.progress}</span><span>${played} / ${total} ${L.nGames(total)}</span>
@@ -817,7 +853,7 @@ function renderStandings() {
           <tr>
             <th>#</th>
             <th>${L.colTeam}</th>
-            <th title="${L.ttP}">${L.colP}</th>
+            <th>${L.colP}</th>
             <th title="${L.ttW}" style="color:var(--accent)">${L.colW}</th>
             <th title="${L.ttD}">${L.colD}</th>
             <th title="${L.ttL}" style="color:var(--danger)">${L.colL}</th>
@@ -845,6 +881,11 @@ function renderStandings() {
 // ══════════════════════════════════════════════
 //  HELPERS
 // ══════════════════════════════════════════════
+function toggleLegend() {
+  const box = document.getElementById('standLegend');
+  if (box) box.classList.toggle('open');
+}
+
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
