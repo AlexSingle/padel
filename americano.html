@@ -762,8 +762,8 @@ function renderStandings() {
   });
 
   const sorted = Object.values(st).sort((a, b) =>
-    b.geims  !== a.geims  ? b.geims  - a.geims  :
     b.points !== a.points ? b.points - a.points :
+    b.geims  !== a.geims  ? b.geims  - a.geims  :
     b.played - a.played);
 
   const played = matches.filter(m => m.score1 !== null && m.score2 !== null).length;
