@@ -500,18 +500,32 @@ function renderStandings() {
 
   // Init stats
   const st = {};
-  teams.forEach(t => { st[t] = { name: t, played: 0, points: 0 }; });
+  teams.forEach(t => { st[t] = { name: t, played: 0, wins: 0, draws: 0, losses: 0, points: 0, geims: 0 }; });
 
-  // Accumulate points
+  // Accumulate stats
+  // Geims: win=2, draw=1, loss=0
   matches.forEach(m => {
     if (m.score1 === null || m.score2 === null) return;
-    st[m.t1].played++;  st[m.t1].points += m.score1;
-    st[m.t2].played++;  st[m.t2].points += m.score2;
+    const s1 = m.score1, s2 = m.score2;
+    st[m.t1].played++;  st[m.t1].points += s1;
+    st[m.t2].played++;  st[m.t2].points += s2;
+    if (s1 > s2) {
+      st[m.t1].wins++;   st[m.t1].geims += 2;
+      st[m.t2].losses++;
+    } else if (s1 < s2) {
+      st[m.t2].wins++;   st[m.t2].geims += 2;
+      st[m.t1].losses++;
+    } else {
+      st[m.t1].draws++;  st[m.t1].geims += 1;
+      st[m.t2].draws++;  st[m.t2].geims += 1;
+    }
   });
 
-  // Sort by total points desc, then by games played desc (more games = more info)
+  // Sort: geims desc → points desc → played desc
   const sorted = Object.values(st).sort((a, b) =>
-    b.points !== a.points ? b.points - a.points : b.played - a.played);
+    b.geims   !== a.geims   ? b.geims   - a.geims   :
+    b.points  !== a.points  ? b.points  - a.points  :
+    b.played  - a.played);
 
   const played = matches.filter(m => m.score1 !== null && m.score2 !== null).length;
   const total  = matches.length;
@@ -534,8 +548,12 @@ function renderStandings() {
           <tr>
             <th>#</th>
             <th>Команда</th>
-            <th title="Сыграно игр">И</th>
-            <th title="Суммарные очки">Очки</th>
+            <th title="Сыграно">И</th>
+            <th title="Победы" style="color:var(--accent)">В</th>
+            <th title="Ничьи">Н</th>
+            <th title="Поражения" style="color:var(--danger)">П</th>
+            <th title="Суммарные очки">Оч</th>
+            <th title="Геймы (В=2, Н=1, П=0)"><strong>Г</strong></th>
           </tr>
         </thead>
         <tbody>
@@ -544,7 +562,11 @@ function renderStandings() {
               <td><span class="medal">${MEDALS[i] || i+1}</span></td>
               <td><strong>${esc(t.name)}</strong></td>
               <td style="color:var(--sub)">${t.played}</td>
-              <td><span class="pts-big">${t.points}</span></td>
+              <td style="color:var(--accent);font-weight:600">${t.wins}</td>
+              <td style="color:var(--sub)">${t.draws}</td>
+              <td style="color:var(--danger)">${t.losses}</td>
+              <td style="color:var(--sub)">${t.points}</td>
+              <td><span class="pts-big">${t.geims}</span></td>
             </tr>`).join('')}
         </tbody>
       </table>
