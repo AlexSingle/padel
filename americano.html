@@ -527,8 +527,10 @@ function setLang(code) {
   document.getElementById('ttAddTeam').textContent       = L.addTeam;
   document.getElementById('teamInput').placeholder       = L.placeholder;
 document.getElementById('ttGenBtn').textContent        = L.genBtn;
-  document.getElementById('emptyGamesText').innerHTML    = L.emptyGames;
-  document.getElementById('emptyStandingsText').innerHTML = L.emptyStand;
+  const eg = document.getElementById('emptyGamesText');
+  const es = document.getElementById('emptyStandingsText');
+  if (eg) eg.innerHTML = L.emptyGames;
+  if (es) es.innerHTML = L.emptyStand;
 
   // Re-render dynamic parts
   renderTeams();
