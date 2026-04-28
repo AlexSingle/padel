@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Americana Padel</title>
+  <title>Americano Padel</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,7 +16,6 @@
       --sub:     #5f6368;
       --border:  #DCE3EC;
       --danger:  #C62828;
-      --gold:    #F9A825;
     }
 
     body {
@@ -31,19 +30,37 @@
     header {
       background: var(--primary);
       color: white;
-      padding: 14px 16px 12px;
-      text-align: center;
+      padding: 10px 16px 8px;
       position: sticky; top: 0; z-index: 200;
       box-shadow: 0 2px 6px rgba(0,0,0,.25);
     }
-    header h1 { font-size: 19px; font-weight: 700; }
-    header p  { font-size: 12px; opacity: .8; margin-top: 2px; }
+    .header-top {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-title { text-align: center; flex: 1; }
+    .header-title h1 { font-size: 18px; font-weight: 700; }
+    .header-title p  { font-size: 11px; opacity: .75; margin-top: 1px; }
+
+    /* Language switcher */
+    .lang-switcher {
+      display: flex; gap: 3px;
+    }
+    .lang-btn {
+      background: rgba(255,255,255,.18);
+      border: none; border-radius: 6px;
+      color: white; font-size: 11px; font-weight: 700;
+      padding: 4px 7px; cursor: pointer;
+      transition: background .15s;
+      user-select: none;
+    }
+    .lang-btn:hover  { background: rgba(255,255,255,.30); }
+    .lang-btn.active { background: rgba(255,255,255,.90); color: var(--primary); }
 
     /* ── TABS ── */
     .tabs {
       display: flex; background: white;
       border-bottom: 1px solid var(--border);
-      position: sticky; top: 58px; z-index: 199;
+      position: sticky; top: 62px; z-index: 199;
     }
     .tab {
       flex: 1; padding: 11px 4px; text-align: center;
@@ -63,6 +80,29 @@
       margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.08);
     }
     .card-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+
+    /* ── TOURNAMENT TYPE ── */
+    .type-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .type-btn {
+      flex: 1; min-width: 120px;
+      padding: 12px 10px; border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      text-align: center; transition: all .15s;
+      user-select: none;
+    }
+    .type-btn.active {
+      border-color: var(--primary);
+      background: #E8F0FE;
+    }
+    .type-btn.disabled {
+      opacity: .45; cursor: not-allowed;
+    }
+    .type-icon  { font-size: 22px; display: block; margin-bottom: 4px; }
+    .type-label { font-size: 13px; font-weight: 700; display: block; }
+    .type-soon  { font-size: 10px; color: var(--sub); display: block; margin-top: 2px; }
 
     /* ── INPUTS ── */
     .input-row { display: flex; gap: 8px; margin-bottom: 10px; }
@@ -112,20 +152,11 @@
     .round-sub { font-size: 12px; color: var(--sub); }
 
     /* ── MATCH CARD ── */
-    .match-card {
-      background: var(--bg); border-radius: 12px;
-      padding: 13px; margin-bottom: 8px;
-    }
-    .match-label {
-      font-size: 11px; color: var(--sub); margin-bottom: 7px;
-      font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
-    }
+    .match-card { background: var(--bg); border-radius: 12px; padding: 13px; margin-bottom: 8px; }
+    .match-label { font-size: 11px; color: var(--sub); margin-bottom: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
     .match-teams { display: flex; align-items: center; gap: 6px; }
     .match-team  { flex: 1; text-align: center; }
-    .match-team-name {
-      font-size: 15px; font-weight: 700; display: block;
-      line-height: 1.3; word-break: break-word;
-    }
+    .match-team-name { font-size: 15px; font-weight: 700; display: block; line-height: 1.3; word-break: break-word; }
     .vs { font-size: 12px; font-weight: 800; color: var(--sub); flex-shrink: 0; }
 
     /* ── SCORE ROW ── */
@@ -135,7 +166,6 @@
       border: 1.5px solid var(--border); border-radius: 8px;
       font-size: 22px; font-weight: 700; color: var(--primary);
       background: white; outline: none;
-      /* hide number spinners */
       -moz-appearance: textfield;
     }
     .score-input::-webkit-outer-spin-button,
@@ -159,8 +189,8 @@
     }
     .standings-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); font-size: 14px; }
     .standings-table tr:last-child td { border-bottom: none; }
-    .medal { font-size: 18px; }
-    .pts-big { font-size: 16px; font-weight: 800; color: var(--primary); }
+    .medal  { font-size: 18px; }
+    .g-big  { font-size: 16px; font-weight: 800; color: var(--primary); }
 
     /* ── PLACEHOLDER ── */
     .placeholder-box {
@@ -185,21 +215,53 @@
 <body>
 
 <header>
-  <h1>🎾 Americana Padel</h1>
-  <p>Генератор турниров</p>
+  <div class="header-top">
+    <div style="width:88px"></div><!-- spacer -->
+    <div class="header-title">
+      <h1>🎾 Americano Padel</h1>
+      <p id="hSubtitle">Генератор турниров</p>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn"        onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        onclick="setLang('pt')">PT</button>
+    </div>
+  </div>
 </header>
 
-<div class="tabs">
-  <div class="tab active" onclick="showTab('teams')">👥 Команды</div>
-  <div class="tab"        onclick="showTab('games')">🎯 Игры</div>
-  <div class="tab"        onclick="showTab('standings')">🏆 Итоги</div>
+<div class="tabs" id="tabBar">
+  <div class="tab active" onclick="showTab('teams')" id="tab-btn-teams">👥 Команды</div>
+  <div class="tab"        onclick="showTab('games')" id="tab-btn-games">🎯 Игры</div>
+  <div class="tab"        onclick="showTab('standings')" id="tab-btn-standings">🏆 Итоги</div>
 </div>
 
 <!-- ═══════════════ TAB: TEAMS ═══════════════ -->
 <div id="tab-teams" class="page active">
 
+  <!-- Tournament type -->
   <div class="card">
-    <div class="card-title">Добавить команду</div>
+    <div class="card-title" id="ttTypeTitle">Тип турнира</div>
+    <div class="type-grid">
+      <div class="type-btn active" id="type-americano" onclick="setType('americano')">
+        <span class="type-icon">🎾</span>
+        <span class="type-label">Americano</span>
+      </div>
+      <!--
+        ╔═══════════════════════════════════════╗
+        ║  FUTURE TOURNAMENT TYPES              ║
+        ║  Uncomment and implement as needed:   ║
+        ║  • Mexicano                           ║
+        ║  • Round Robin                        ║
+        ║  • King of the Court                  ║
+        ╚═══════════════════════════════════════╝
+      -->
+    </div>
+  </div>
+
+  <!-- Teams -->
+  <div class="card">
+    <div class="card-title" id="ttAddTeam">Добавить команду</div>
     <div class="input-row">
       <input type="text" id="teamInput" placeholder="Название команды"
              onkeypress="if(event.key==='Enter')addTeam()">
@@ -211,26 +273,25 @@
 
   <!--
     ╔══════════════════════════════════════════════╗
-    ║   ПРАВИЛА СОСТАВЛЕНИЯ РАСПИСАНИЯ — БУДУЩЕЕ   ║
+    ║   SCHEDULE RULES — FUTURE                    ║
     ║                                              ║
-    ║  Здесь можно реализовать:                    ║
-    ║  • Фиксированные пары в одном раунде         ║
-    ║  • Запрет на определённые встречи            ║
-    ║  • Сидирование команд                        ║
-    ║  Хук: функция applyScheduleRules(matches)    ║
+    ║  Possible features:                          ║
+    ║  • Fixed matches in specific rounds          ║
+    ║  • Forbidden matchups                        ║
+    ║  • Team seeding                              ║
+    ║  Hook: applyScheduleRules(matchList)         ║
     ╚══════════════════════════════════════════════╝
   -->
   <div class="card">
-    <div class="card-title">⚙️ Правила расписания</div>
+    <div class="card-title" id="ttSchedTitle">⚙️ Правила расписания</div>
     <div class="placeholder-box">
       <div class="ph-icon">🔧</div>
-      <p>Здесь появятся настройки расписания:<br>
-         фиксированные матчи, сиды и т.д.</p>
+      <p id="ttSchedText">Здесь появятся настройки расписания:<br>фиксированные матчи, сиды и т.д.</p>
     </div>
   </div>
 
   <div class="card">
-    <button class="btn btn-success" onclick="generateTournament()">
+    <button class="btn btn-success" id="ttGenBtn" onclick="generateTournament()">
       🎯 Сгенерировать турнир
     </button>
   </div>
@@ -242,7 +303,7 @@
   <div id="gamesContent">
     <div class="empty-state">
       <div class="icon">🏆</div>
-      <p>Добавьте команды<br>и нажмите «Сгенерировать турнир»</p>
+      <p id="emptyGamesText">Добавьте команды<br>и нажмите «Сгенерировать турнир»</p>
     </div>
   </div>
 </div>
@@ -252,18 +313,214 @@
   <div id="standingsContent">
     <div class="empty-state">
       <div class="icon">📊</div>
-      <p>Результаты появятся<br>после генерации турнира</p>
+      <p id="emptyStandingsText">Результаты появятся<br>после генерации турнира</p>
     </div>
   </div>
 </div>
 
 <script>
 // ══════════════════════════════════════════════
+//  TRANSLATIONS
+// ══════════════════════════════════════════════
+const LANGS = {
+  ru: {
+    subtitle:     'Генератор турниров',
+    tabTeams:     '👥 Команды',
+    tabGames:     '🎯 Игры',
+    tabStandings: '🏆 Итоги',
+    typeTitle:    'Тип турнира',
+    addTeam:      'Добавить команду',
+    placeholder:  'Название команды',
+    noTeams:      'Пока нет команд',
+    teamExists:   'Команда с таким названием уже есть',
+    minTeams:     'Нужно минимум 2 команды',
+    teamsCount:   (n, g) => `${n} команд · ${g} игр`,
+    schedTitle:   '⚙️ Правила расписания',
+    schedText:    'Здесь появятся настройки расписания:<br>фиксированные матчи, сиды и т.д.',
+    genBtn:       '🎯 Сгенерировать турнир',
+    emptyGames:   'Добавьте команды<br>и нажмите «Сгенерировать турнир»',
+    emptyStand:   'Результаты появятся<br>после генерации турнира',
+    noGames:      'Нет игр',
+    firstGen:     'Сначала сгенерируйте турнир',
+    statTeams:    'Команд',
+    statGames:    'Всего игр',
+    statRounds:   'Раундов',
+    statEach:     'Игр у каждой',
+    round:        'Раунд',
+    gameLabel:    'Игра',
+    progress:     'Прогресс',
+    standTitle:   'Таблица результатов',
+    colTeam:      'Команда',
+    colP: 'И', ttP: 'Сыграно',
+    colW: 'В', ttW: 'Победы',
+    colD: 'Н', ttD: 'Ничьи',
+    colL: 'П', ttL: 'Поражения',
+    colPts: 'Оч', ttPts: 'Суммарные очки',
+    colG: 'Г',   ttG: 'Геймы (В=2, Н=1, П=0)',
+    nGames: n => n===1?'игра':n<=4?'игры':'игр',
+  },
+  en: {
+    subtitle:     'Tournament Generator',
+    tabTeams:     '👥 Teams',
+    tabGames:     '🎯 Games',
+    tabStandings: '🏆 Standings',
+    typeTitle:    'Tournament Type',
+    addTeam:      'Add team',
+    placeholder:  'Team name',
+    noTeams:      'No teams yet',
+    teamExists:   'A team with this name already exists',
+    minTeams:     'At least 2 teams required',
+    teamsCount:   (n, g) => `${n} teams · ${g} games`,
+    schedTitle:   '⚙️ Schedule Rules',
+    schedText:    'Custom scheduling rules will appear here:<br>fixed matches, seeding, etc.',
+    genBtn:       '🎯 Generate Tournament',
+    emptyGames:   'Add teams<br>and press "Generate Tournament"',
+    emptyStand:   'Results will appear<br>after generating the tournament',
+    noGames:      'No games',
+    firstGen:     'Generate the tournament first',
+    statTeams:    'Teams',
+    statGames:    'Total games',
+    statRounds:   'Rounds',
+    statEach:     'Games each',
+    round:        'Round',
+    gameLabel:    'Game',
+    progress:     'Progress',
+    standTitle:   'Standings',
+    colTeam:      'Team',
+    colP: 'P', ttP: 'Played',
+    colW: 'W', ttW: 'Wins',
+    colD: 'D', ttD: 'Draws',
+    colL: 'L', ttL: 'Losses',
+    colPts: 'Pts', ttPts: 'Total points',
+    colG: 'G',   ttG: 'Game pts (W=2, D=1, L=0)',
+    nGames: n => n===1?'game':'games',
+  },
+  es: {
+    subtitle:     'Generador de torneos',
+    tabTeams:     '👥 Equipos',
+    tabGames:     '🎯 Partidos',
+    tabStandings: '🏆 Clasificación',
+    typeTitle:    'Tipo de torneo',
+    addTeam:      'Añadir equipo',
+    placeholder:  'Nombre del equipo',
+    noTeams:      'Sin equipos aún',
+    teamExists:   'Ya existe un equipo con ese nombre',
+    minTeams:     'Se necesitan al menos 2 equipos',
+    teamsCount:   (n, g) => `${n} equipos · ${g} partidos`,
+    schedTitle:   '⚙️ Reglas de programación',
+    schedText:    'Las reglas personalizadas aparecerán aquí:<br>partidos fijos, cabezas de serie, etc.',
+    genBtn:       '🎯 Generar torneo',
+    emptyGames:   'Añade equipos<br>y pulsa «Generar torneo»',
+    emptyStand:   'Los resultados aparecerán<br>después de generar el torneo',
+    noGames:      'Sin partidos',
+    firstGen:     'Primero genera el torneo',
+    statTeams:    'Equipos',
+    statGames:    'Total partidos',
+    statRounds:   'Rondas',
+    statEach:     'Partidos c/u',
+    round:        'Ronda',
+    gameLabel:    'Partido',
+    progress:     'Progreso',
+    standTitle:   'Clasificación',
+    colTeam:      'Equipo',
+    colP: 'PJ', ttP: 'Jugados',
+    colW: 'G',  ttW: 'Ganados',
+    colD: 'E',  ttD: 'Empates',
+    colL: 'P',  ttL: 'Perdidos',
+    colPts: 'Pts', ttPts: 'Puntos totales',
+    colG: 'J',  ttG: 'Juegos (G=2, E=1, P=0)',
+    nGames: n => n===1?'partido':'partidos',
+  },
+  pt: {
+    subtitle:     'Gerador de torneios',
+    tabTeams:     '👥 Equipes',
+    tabGames:     '🎯 Jogos',
+    tabStandings: '🏆 Classificação',
+    typeTitle:    'Tipo de torneio',
+    addTeam:      'Adicionar equipe',
+    placeholder:  'Nome da equipe',
+    noTeams:      'Sem equipes ainda',
+    teamExists:   'Já existe uma equipe com esse nome',
+    minTeams:     'São necessárias pelo menos 2 equipes',
+    teamsCount:   (n, g) => `${n} equipes · ${g} jogos`,
+    schedTitle:   '⚙️ Regras de agendamento',
+    schedText:    'Regras personalizadas aparecerão aqui:<br>jogos fixos, cabeças de chave, etc.',
+    genBtn:       '🎯 Gerar torneio',
+    emptyGames:   'Adicione equipes<br>e pressione «Gerar torneio»',
+    emptyStand:   'Os resultados aparecerão<br>após gerar o torneio',
+    noGames:      'Sem jogos',
+    firstGen:     'Gere o torneio primeiro',
+    statTeams:    'Equipes',
+    statGames:    'Total de jogos',
+    statRounds:   'Rodadas',
+    statEach:     'Jogos cada',
+    round:        'Rodada',
+    gameLabel:    'Jogo',
+    progress:     'Progresso',
+    standTitle:   'Classificação',
+    colTeam:      'Equipe',
+    colP: 'J', ttP: 'Jogados',
+    colW: 'V', ttW: 'Vitórias',
+    colD: 'E', ttD: 'Empates',
+    colL: 'D', ttL: 'Derrotas',
+    colPts: 'Pts', ttPts: 'Pontos totais',
+    colG: 'G',  ttG: 'Games (V=2, E=1, D=0)',
+    nGames: n => n===1?'jogo':'jogos',
+  }
+};
+
+// ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
-let teams   = [];
-let matches = [];
-// match = { round, num, t1: "name", t2: "name", score1: null, score2: null }
+let lang         = 'ru';
+let L            = LANGS.ru;
+let tourneyType  = 'americano';
+let teams        = [];
+let matches      = [];
+// match = { round, num, t1, t2, score1: null, score2: null }
+
+// ══════════════════════════════════════════════
+//  LANGUAGE
+// ══════════════════════════════════════════════
+function setLang(code) {
+  lang = code;
+  L    = LANGS[code];
+
+  // Update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent === code.toUpperCase()));
+
+  // Update static elements
+  document.getElementById('hSubtitle').textContent       = L.subtitle;
+  document.getElementById('tab-btn-teams').textContent   = L.tabTeams;
+  document.getElementById('tab-btn-games').textContent   = L.tabGames;
+  document.getElementById('tab-btn-standings').textContent = L.tabStandings;
+  document.getElementById('ttTypeTitle').textContent     = L.typeTitle;
+  document.getElementById('ttAddTeam').textContent       = L.addTeam;
+  document.getElementById('teamInput').placeholder       = L.placeholder;
+  document.getElementById('ttSchedTitle').textContent    = L.schedTitle;
+  document.getElementById('ttSchedText').innerHTML       = L.schedText;
+  document.getElementById('ttGenBtn').textContent        = L.genBtn;
+  document.getElementById('emptyGamesText').innerHTML    = L.emptyGames;
+  document.getElementById('emptyStandingsText').innerHTML = L.emptyStand;
+
+  // Re-render dynamic parts
+  renderTeams();
+  if (matches.length) {
+    const rounds = getRoundsFromMatches();
+    renderGames(rounds);
+    renderStandings();
+  }
+}
+
+// ══════════════════════════════════════════════
+//  TOURNAMENT TYPE
+// ══════════════════════════════════════════════
+function setType(type) {
+  tourneyType = type;
+  document.querySelectorAll('.type-btn').forEach(b =>
+    b.classList.toggle('active', b.id === 'type-' + type));
+}
 
 // ══════════════════════════════════════════════
 //  TABS
@@ -284,7 +541,7 @@ function addTeam() {
   const name = inp.value.trim();
   if (!name) return;
   if (teams.find(t => t.toLowerCase() === name.toLowerCase())) {
-    alert('Команда с таким названием уже есть');
+    alert(L.teamExists);
     return;
   }
   teams.push(name);
@@ -303,7 +560,7 @@ function renderTeams() {
   const count = document.getElementById('teamCount');
 
   if (!teams.length) {
-    list.innerHTML = '<p style="color:var(--sub);font-size:14px;padding:6px 0">Пока нет команд</p>';
+    list.innerHTML = `<p style="color:var(--sub);font-size:14px;padding:6px 0">${L.noTeams}</p>`;
     count.textContent = '';
     return;
   }
@@ -315,9 +572,8 @@ function renderTeams() {
       <button class="btn btn-danger" onclick="removeTeam(${i})">×</button>
     </div>`).join('');
 
-  const n     = teams.length;
-  const games = n * (n - 1) / 2;
-  count.textContent = `${n} команд · ${games} игр`;
+  const n = teams.length, g = n * (n - 1) / 2;
+  count.textContent = L.teamsCount(n, g);
 }
 
 // ══════════════════════════════════════════════
@@ -332,14 +588,13 @@ function applyScheduleRules(matchList) {
 }
 
 // ══════════════════════════════════════════════
-//  MATCH GENERATION  (round-robin: each vs each)
+//  MATCH GENERATION (round-robin: each vs each)
 // ══════════════════════════════════════════════
 function generateRoundRobin(teamList) {
   const raw = [];
   for (let i = 0; i < teamList.length; i++)
     for (let j = i + 1; j < teamList.length; j++)
       raw.push({ t1: teamList[i], t2: teamList[j] });
-
   return applyScheduleRules(shuffle(raw));
 }
 
@@ -354,41 +609,34 @@ function shuffle(arr) {
 
 // ══════════════════════════════════════════════
 //  ROUND BUILDER
-//  Groups matches so no team plays twice per round
 // ══════════════════════════════════════════════
 function buildRounds(matchList) {
-  const rem    = [...matchList];
-  const rounds = [];
-
+  const rem = [...matchList], rounds = [];
   while (rem.length) {
-    const round = [];
-    const used  = new Set();
-    const keep  = [];
-
+    const round = [], used = new Set(), keep = [];
     for (const m of rem) {
       if (used.has(m.t1) || used.has(m.t2)) { keep.push(m); continue; }
-      round.push(m);
-      used.add(m.t1);
-      used.add(m.t2);
+      round.push(m); used.add(m.t1); used.add(m.t2);
     }
-
-    if (!round.length) { rounds.push([rem.shift()]); continue; } // safety
+    if (!round.length) { rounds.push([rem.shift()]); continue; }
     rounds.push(round);
     rem.length = 0;
     keep.forEach(m => rem.push(m));
   }
-
   return rounds;
+}
+
+function getRoundsFromMatches() {
+  const byRound = {};
+  matches.forEach(m => { (byRound[m.round] = byRound[m.round] || []).push(m); });
+  return Object.values(byRound);
 }
 
 // ══════════════════════════════════════════════
 //  GENERATE TOURNAMENT
 // ══════════════════════════════════════════════
 function generateTournament() {
-  if (teams.length < 2) {
-    alert('Нужно минимум 2 команды');
-    return;
-  }
+  if (teams.length < 2) { alert(L.minTeams); return; }
 
   const raw    = generateRoundRobin(teams);
   const rounds = buildRounds(raw);
@@ -397,7 +645,7 @@ function generateTournament() {
   let num = 1;
   rounds.forEach((round, ri) => {
     round.forEach(m => {
-      matches.push({ round: ri + 1, num: num++,
+      matches.push({ round: ri+1, num: num++,
         t1: m.t1, t2: m.t2, score1: null, score2: null });
     });
   });
@@ -413,17 +661,17 @@ function generateTournament() {
 function renderGames(rounds) {
   const cont = document.getElementById('gamesContent');
   if (!matches.length) {
-    cont.innerHTML = '<div class="empty-state"><div class="icon">🎾</div><p>Нет игр</p></div>';
+    cont.innerHTML = `<div class="empty-state"><div class="icon">🎾</div><p>${L.noGames}</p></div>`;
     return;
   }
 
   let html = `
     <div class="card">
       <div class="stats-grid">
-        <div class="stat-box"><div class="stat-num">${teams.length}</div><div class="stat-lbl">Команд</div></div>
-        <div class="stat-box"><div class="stat-num">${matches.length}</div><div class="stat-lbl">Всего игр</div></div>
-        <div class="stat-box"><div class="stat-num">${rounds.length}</div><div class="stat-lbl">Раундов</div></div>
-        <div class="stat-box"><div class="stat-num">${teams.length - 1}</div><div class="stat-lbl">Игр у каждой</div></div>
+        <div class="stat-box"><div class="stat-num">${teams.length}</div><div class="stat-lbl">${L.statTeams}</div></div>
+        <div class="stat-box"><div class="stat-num">${matches.length}</div><div class="stat-lbl">${L.statGames}</div></div>
+        <div class="stat-box"><div class="stat-num">${rounds.length}</div><div class="stat-lbl">${L.statRounds}</div></div>
+        <div class="stat-box"><div class="stat-num">${teams.length - 1}</div><div class="stat-lbl">${L.statEach}</div></div>
       </div>
     </div>`;
 
@@ -431,29 +679,24 @@ function renderGames(rounds) {
   matches.forEach(m => { (byRound[m.round] = byRound[m.round] || []).push(m); });
 
   Object.keys(byRound).forEach(r => {
-    const rMatches = byRound[r];
+    const rm = byRound[r];
     html += `<div class="card">
       <div class="round-header">
-        <span class="round-badge">Раунд ${r}</span>
-        <span class="round-sub">${rMatches.length} ${wordGame(rMatches.length)}</span>
+        <span class="round-badge">${L.round} ${r}</span>
+        <span class="round-sub">${rm.length} ${L.nGames(rm.length)}</span>
       </div>`;
 
-    rMatches.forEach(m => {
+    rm.forEach(m => {
       const idx = matches.indexOf(m);
       const s1  = m.score1 !== null ? m.score1 : '';
       const s2  = m.score2 !== null ? m.score2 : '';
-
       html += `
         <div class="match-card">
-          <div class="match-label">Игра #${m.num}</div>
+          <div class="match-label">${L.gameLabel} #${m.num}</div>
           <div class="match-teams">
-            <div class="match-team">
-              <span class="match-team-name">${esc(m.t1)}</span>
-            </div>
+            <div class="match-team"><span class="match-team-name">${esc(m.t1)}</span></div>
             <div class="vs">VS</div>
-            <div class="match-team">
-              <span class="match-team-name">${esc(m.t2)}</span>
-            </div>
+            <div class="match-team"><span class="match-team-name">${esc(m.t2)}</span></div>
           </div>
           <div class="score-row">
             <span class="score-side">${esc(m.t1)}</span>
@@ -489,55 +732,51 @@ function setScore(idx, side, val) {
 
 // ══════════════════════════════════════════════
 //  RENDER STANDINGS
-//  Ranked by total points scored (sum of all scores)
+//  Sort: geims → points → played
 // ══════════════════════════════════════════════
 function renderStandings() {
   const cont = document.getElementById('standingsContent');
   if (!matches.length) {
-    cont.innerHTML = '<div class="empty-state"><div class="icon">📊</div><p>Сначала сгенерируйте турнир</p></div>';
+    cont.innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>${L.firstGen}</p></div>`;
     return;
   }
 
-  // Init stats
   const st = {};
   teams.forEach(t => { st[t] = { name: t, played: 0, wins: 0, draws: 0, losses: 0, points: 0, geims: 0 }; });
 
-  // Accumulate stats
-  // Geims: win=2, draw=1, loss=0
   matches.forEach(m => {
     if (m.score1 === null || m.score2 === null) return;
     const s1 = m.score1, s2 = m.score2;
-    st[m.t1].played++;  st[m.t1].points += s1;
-    st[m.t2].played++;  st[m.t2].points += s2;
+    st[m.t1].played++; st[m.t1].points += s1;
+    st[m.t2].played++; st[m.t2].points += s2;
     if (s1 > s2) {
-      st[m.t1].wins++;   st[m.t1].geims += 2;
+      st[m.t1].wins++;  st[m.t1].geims += 2;
       st[m.t2].losses++;
     } else if (s1 < s2) {
-      st[m.t2].wins++;   st[m.t2].geims += 2;
+      st[m.t2].wins++;  st[m.t2].geims += 2;
       st[m.t1].losses++;
     } else {
-      st[m.t1].draws++;  st[m.t1].geims += 1;
-      st[m.t2].draws++;  st[m.t2].geims += 1;
+      st[m.t1].draws++; st[m.t1].geims += 1;
+      st[m.t2].draws++; st[m.t2].geims += 1;
     }
   });
 
-  // Sort: geims desc → points desc → played desc
   const sorted = Object.values(st).sort((a, b) =>
-    b.geims   !== a.geims   ? b.geims   - a.geims   :
-    b.points  !== a.points  ? b.points  - a.points  :
-    b.played  - a.played);
+    b.geims  !== a.geims  ? b.geims  - a.geims  :
+    b.points !== a.points ? b.points - a.points :
+    b.played - a.played);
 
   const played = matches.filter(m => m.score1 !== null && m.score2 !== null).length;
   const total  = matches.length;
   const pct    = total ? Math.round(played / total * 100) : 0;
   const MEDALS = ['🥇','🥈','🥉'];
 
-  let html = `
+  cont.innerHTML = `
     <div class="card">
-      <div class="card-title">Таблица результатов</div>
+      <div class="card-title">${L.standTitle}</div>
       <div class="progress-wrap">
         <div class="progress-lbl">
-          <span>Прогресс</span><span>${played} / ${total} игр</span>
+          <span>${L.progress}</span><span>${played} / ${total} ${L.nGames(total)}</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       </div>
@@ -547,13 +786,13 @@ function renderStandings() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Команда</th>
-            <th title="Сыграно">И</th>
-            <th title="Победы" style="color:var(--accent)">В</th>
-            <th title="Ничьи">Н</th>
-            <th title="Поражения" style="color:var(--danger)">П</th>
-            <th title="Суммарные очки">Оч</th>
-            <th title="Геймы (В=2, Н=1, П=0)"><strong>Г</strong></th>
+            <th>${L.colTeam}</th>
+            <th title="${L.ttP}">${L.colP}</th>
+            <th title="${L.ttW}" style="color:var(--accent)">${L.colW}</th>
+            <th title="${L.ttD}">${L.colD}</th>
+            <th title="${L.ttL}" style="color:var(--danger)">${L.colL}</th>
+            <th title="${L.ttPts}">${L.colPts}</th>
+            <th title="${L.ttG}"><strong>${L.colG}</strong></th>
           </tr>
         </thead>
         <tbody>
@@ -566,27 +805,18 @@ function renderStandings() {
               <td style="color:var(--sub)">${t.draws}</td>
               <td style="color:var(--danger)">${t.losses}</td>
               <td style="color:var(--sub)">${t.points}</td>
-              <td><span class="pts-big">${t.geims}</span></td>
+              <td><span class="g-big">${t.geims}</span></td>
             </tr>`).join('')}
         </tbody>
       </table>
     </div>`;
-
-  cont.innerHTML = html;
 }
 
 // ══════════════════════════════════════════════
 //  HELPERS
 // ══════════════════════════════════════════════
 function esc(s) {
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function wordGame(n) {
-  if (n === 1) return 'игра';
-  if (n >= 2 && n <= 4) return 'игры';
-  return 'игр';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 // Init
