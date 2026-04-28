@@ -298,26 +298,7 @@
     <div id="teamCount" class="team-count"></div>
   </div>
 
-  <!--
-    ╔══════════════════════════════════════════════╗
-    ║   SCHEDULE RULES — FUTURE                    ║
-    ║                                              ║
-    ║  Possible features:                          ║
-    ║  • Fixed matches in specific rounds          ║
-    ║  • Forbidden matchups                        ║
-    ║  • Team seeding                              ║
-    ║  Hook: applyScheduleRules(matchList)         ║
-    ╚══════════════════════════════════════════════╝
-  -->
-  <div class="card">
-    <div class="card-title" id="ttSchedTitle">⚙️ Правила расписания</div>
-    <div class="placeholder-box">
-      <div class="ph-icon">🔧</div>
-      <p id="ttSchedText">Здесь появятся настройки расписания:<br>фиксированные матчи, сиды и т.д.</p>
-    </div>
-  </div>
-
-  <div class="card">
+<div class="card">
     <button class="btn btn-success" id="ttGenBtn" onclick="generateTournament()">
       🎯 Сгенерировать турнир
     </button>
@@ -545,9 +526,7 @@ function setLang(code) {
   document.getElementById('ttTypeTitle').textContent     = L.typeTitle;
   document.getElementById('ttAddTeam').textContent       = L.addTeam;
   document.getElementById('teamInput').placeholder       = L.placeholder;
-  document.getElementById('ttSchedTitle').textContent    = L.schedTitle;
-  document.getElementById('ttSchedText').innerHTML       = L.schedText;
-  document.getElementById('ttGenBtn').textContent        = L.genBtn;
+document.getElementById('ttGenBtn').textContent        = L.genBtn;
   document.getElementById('emptyGamesText').innerHTML    = L.emptyGames;
   document.getElementById('emptyStandingsText').innerHTML = L.emptyStand;
 
