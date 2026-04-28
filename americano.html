@@ -819,8 +819,8 @@ function renderStandings() {
             <th title="${L.ttW}" style="color:var(--accent)">${L.colW}</th>
             <th title="${L.ttD}">${L.colD}</th>
             <th title="${L.ttL}" style="color:var(--danger)">${L.colL}</th>
-            <th title="${L.ttPts}">${L.colPts}</th>
-            <th title="${L.ttG}"><strong>${L.colG}</strong></th>
+            <th title="${L.ttG}">${L.colG}</th>
+            <th title="${L.ttPts}"><strong>${L.colPts}</strong></th>
           </tr>
         </thead>
         <tbody>
@@ -832,8 +832,8 @@ function renderStandings() {
               <td style="color:var(--accent);font-weight:600">${t.wins}</td>
               <td style="color:var(--sub)">${t.draws}</td>
               <td style="color:var(--danger)">${t.losses}</td>
-              <td style="color:var(--sub)">${t.points}</td>
-              <td><span class="g-big">${t.geims}</span></td>
+              <td style="color:var(--sub)">${t.geims}</td>
+              <td><span class="g-big">${t.points}</span></td>
             </tr>`).join('')}
         </tbody>
       </table>
