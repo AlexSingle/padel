@@ -355,8 +355,8 @@ const LANGS = {
     colW: 'В', ttW: 'Победы',
     colD: 'Н', ttD: 'Ничьи',
     colL: 'П', ttL: 'Поражения',
-    colPts: 'Оч', ttPts: 'Суммарные очки',
-    colG: 'Г',   ttG: 'Геймы (В=2, Н=1, П=0)',
+    colPts: 'Оч', ttPts: 'Очки (В=3, Н=1, П=0)',
+    colG: 'Г',   ttG: 'Геймы — сумма забитых очков',
     nGames: n => n===1?'игра':n<=4?'игры':'игр',
   },
   en: {
@@ -391,8 +391,8 @@ const LANGS = {
     colW: 'W', ttW: 'Wins',
     colD: 'D', ttD: 'Draws',
     colL: 'L', ttL: 'Losses',
-    colPts: 'Pts', ttPts: 'Total points',
-    colG: 'G',   ttG: 'Game pts (W=2, D=1, L=0)',
+    colPts: 'Pts', ttPts: 'Points (W=3, D=1, L=0)',
+    colG: 'G',   ttG: 'Geims — total score sum',
     nGames: n => n===1?'game':'games',
   },
   es: {
@@ -427,8 +427,8 @@ const LANGS = {
     colW: 'G',  ttW: 'Ganados',
     colD: 'E',  ttD: 'Empates',
     colL: 'P',  ttL: 'Perdidos',
-    colPts: 'Pts', ttPts: 'Puntos totales',
-    colG: 'J',  ttG: 'Juegos (G=2, E=1, P=0)',
+    colPts: 'Pts', ttPts: 'Puntos (G=3, E=1, P=0)',
+    colG: 'J',  ttG: 'Juegos — suma de puntos',
     nGames: n => n===1?'partido':'partidos',
   },
   pt: {
@@ -463,8 +463,8 @@ const LANGS = {
     colW: 'V', ttW: 'Vitórias',
     colD: 'E', ttD: 'Empates',
     colL: 'D', ttL: 'Derrotas',
-    colPts: 'Pts', ttPts: 'Pontos totais',
-    colG: 'G',  ttG: 'Games (V=2, E=1, D=0)',
+    colPts: 'Pts', ttPts: 'Pontos (V=3, E=1, D=0)',
+    colG: 'G',  ttG: 'Games — soma dos pontos',
     nGames: n => n===1?'jogo':'jogos',
   }
 };
@@ -747,17 +747,19 @@ function renderStandings() {
   matches.forEach(m => {
     if (m.score1 === null || m.score2 === null) return;
     const s1 = m.score1, s2 = m.score2;
-    st[m.t1].played++; st[m.t1].points += s1;
-    st[m.t2].played++; st[m.t2].points += s2;
+    // геймы = сумма забитых очков из матчей
+    st[m.t1].played++; st[m.t1].geims += s1;
+    st[m.t2].played++; st[m.t2].geims += s2;
+    // очки = 2 за победу, 1 за ничью, 0 за поражение
     if (s1 > s2) {
-      st[m.t1].wins++;  st[m.t1].geims += 2;
+      st[m.t1].wins++;  st[m.t1].points += 3;
       st[m.t2].losses++;
     } else if (s1 < s2) {
-      st[m.t2].wins++;  st[m.t2].geims += 2;
+      st[m.t2].wins++;  st[m.t2].points += 3;
       st[m.t1].losses++;
     } else {
-      st[m.t1].draws++; st[m.t1].geims += 1;
-      st[m.t2].draws++; st[m.t2].geims += 1;
+      st[m.t1].draws++; st[m.t1].points += 1;
+      st[m.t2].draws++; st[m.t2].points += 1;
     }
   });
 
